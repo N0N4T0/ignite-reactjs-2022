@@ -5,6 +5,55 @@ import { Sidebar } from "./components/Sidebar";
 import styles from './App.module.css'
 import './global.css'
 
+// author: {avatar_url: "", name: "", role: ""}
+// publishedAt: Date
+// content: String
+
+const posts = [
+	{
+		id: 1,
+		author: {
+			avatarUrl: 'https://avatars.githubusercontent.com/u/39486464?v=4',
+			name: 'Lúcio Nonato',
+			role: 'FrontEnd Developer'
+		}, 
+		content: [
+			{type: 'paragraph', content: 'Fala galeraa 👋'},
+			{type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+			{type: 'paragraph', content: 'Fala galeraa 👋'},
+		],
+		publishedAt: new Date('2022-05-03 20:00')
+	},
+	{
+		id: 2,
+		author: {
+			avatarUrl: 'https://avatars.githubusercontent.com/u/6643122?v=4',
+			name: 'Maik Brito',
+			role: 'Educator @Rocketseat'
+		}, 
+		content: [
+			{type: 'paragraph', content: 'Fala galeraa 👋'},
+			{type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+			{type: 'paragraph', content: 'Fala galeraa 👋'},
+		],
+		publishedAt: new Date('2022-05-03 20:00')
+	},
+	{
+		id: 3,
+		author: {
+			avatarUrl: 'https://avatars.githubusercontent.com/u/2254731?v=4',
+			name: 'Diego Fernandes',
+			role: 'CTO @Rocketseat'
+		}, 
+		content: [
+			{type: 'paragraph', content: 'Fala galeraa 👋'},
+			{type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+			{type: 'paragraph', content: 'Fala galeraa 👋'},
+		],
+		publishedAt: new Date('2022-05-03 20:00')
+	}
+]
+
 export function App() {
 
 	return (
@@ -15,10 +64,15 @@ export function App() {
 				<Sidebar/>
 
 				<main>
-					<Post
-						author="Lúcio"
-						content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima et laudantium omnis aut rem beatae maxime tempora vel totam eos ea est ratione voluptas, hic, officiis ipsam dolores enim consequuntur"
-					/>
+					{posts.map(post => {
+						return (
+							<Post
+								author={post.author}
+								content={post.content}
+								publishedAt={post.publishedAt}
+							/>
+						)
+					})}
 				</main>
 			</div>
 		</>
