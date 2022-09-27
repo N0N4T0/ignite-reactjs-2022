@@ -37,7 +37,7 @@ export function History() {
                     {/* condicional:
                       se tiver a informação ciclo.finishedDate então. 
                       É um  if com then e sem o else
-                      O javascript só executa a sefinga parte de um if se a primeira for true
+                      O javascript só executa a segunda parte de um if se a primeira for true
                       só vai executar depois && caso antes do '&&' seja verdadeiro, truty
                     */}
                     {cycle.finishedDate && (
@@ -47,7 +47,7 @@ export function History() {
                       <Status statusColor="red">Interrompido</Status>
                     )}
                     {!cycle.finishedDate && !cycle.interruptedDate && (
-                      <Status statusColor="green">Concluído</Status>
+                      <Status statusColor="yellow">Em andamento</Status>
                     )}
                   </td>
                 </tr>
