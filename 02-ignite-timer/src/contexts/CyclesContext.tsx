@@ -1,4 +1,5 @@
 import { differenceInSeconds } from 'date-fns'
+
 import {
   createContext,
   ReactNode,
@@ -6,8 +7,13 @@ import {
   useReducer,
   useState,
 } from 'react'
-import { ActionTypes } from '../reducer/actions'
-import { Cycle, cyclesReducer } from '../reducer/cycles'
+import {
+  addNewCycleAction,
+  interruptCurrentCycleAction,
+  markCurrentCycleAsFinishedAction,
+} from '../reducer/cycles/actions'
+import { Cycle, cyclesReducer } from '../reducer/cycles/cycles'
+
 interface CreateCycleData {
   task: string
   minutesAmount: number
@@ -23,7 +29,9 @@ interface CyclesContextType {
   createNewCycle: (data: CreateCycleData) => void
   interruptCurrentCycle: () => void
 }
+
 export const CyclesContext = createContext({} as CyclesContextType)
+
 interface CyclesContextProviderProps {
   children: ReactNode
 }
@@ -31,8 +39,6 @@ interface CyclesContextProviderProps {
 export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
-  // action = ação que o usário esta querendo alterar na nossa variavél
-  // state = estado naquele momento
   const [cyclesState, dispatch] = useReducer(
     cyclesReducer,
     {
@@ -72,16 +78,12 @@ export function CyclesContextProvider({
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch({
-      type: ActionTypes.MARK_CURRENT_CYCLE_AS_FINISHED,
-      payload: {
-        activeCycleId,
-      },
-    })
+    dispatch(markCurrentCycleAsFinishedAction())
   }
 
   function createNewCycle(data: CreateCycleData) {
     const id = String(new Date().getTime())
+
     const newCycle: Cycle = {
       id,
       task: data.task,
@@ -89,25 +91,13 @@ export function CyclesContextProvider({
       startDate: new Date(),
     }
 
-    // dentro do meu dispatch eu preciso enviar uma informação que dentro do reducer,
-    // eu consiga distinguir uma action da outra
-    dispatch({
-      type: ActionTypes.ADD_NEW_CYCLE,
-      payload: {
-        newCycle,
-      },
-    })
+    dispatch(addNewCycleAction(newCycle))
 
     setAmountSecondsPassed(0)
   }
 
   function interruptCurrentCycle() {
-    dispatch({
-      type: ActionTypes.INTERRUPT_CURRENT_CYCLE,
-      payload: {
-        activeCycleId,
-      },
-    })
+    dispatch(interruptCurrentCycleAction())
   }
 
   return (

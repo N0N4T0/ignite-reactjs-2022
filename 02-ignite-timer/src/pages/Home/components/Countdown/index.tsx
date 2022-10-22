@@ -1,24 +1,20 @@
 import { differenceInSeconds } from 'date-fns'
-import React, { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { CyclesContext } from '../../../../contexts/CyclesContext'
-import { CountContainer, Separator } from './styles'
+import { CountdownContainer, Separator } from './styles'
 
 export function Countdown() {
   const {
     activeCycle,
     activeCycleId,
-    amountSecondsPassed,
     markCurrentCycleAsFinished,
+    amountSecondsPassed,
     setSecondsPassed,
   } = useContext(CyclesContext)
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
 
-  // COmo o setInterval não é preciso, a lógica será comparar a data atual com
-  // a data qeu salvei no starDate e ver quantos segundos se passaram
-  // Sempre que utilizamos uma variável externa no useEffect precisamos incluir
-  // essa variável como dependência
-  React.useEffect(() => {
+  useEffect(() => {
     let interval: number
 
     if (activeCycle) {
@@ -37,17 +33,17 @@ export function Countdown() {
           setSecondsPassed(secondsDifference)
         }
       }, 1000)
+    }
 
-      return () => {
-        clearInterval(interval)
-      }
+    return () => {
+      clearInterval(interval)
     }
   }, [
     activeCycle,
     totalSeconds,
     activeCycleId,
-    markCurrentCycleAsFinished,
     setSecondsPassed,
+    markCurrentCycleAsFinished,
   ])
 
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
@@ -58,19 +54,19 @@ export function Countdown() {
   const minutes = String(minutesAmount).padStart(2, '0')
   const seconds = String(secondsAmount).padStart(2, '0')
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeCycle) {
       document.title = `${minutes}:${seconds}`
     }
   }, [minutes, seconds, activeCycle])
 
   return (
-    <CountContainer>
+    <CountdownContainer>
       <span>{minutes[0]}</span>
       <span>{minutes[1]}</span>
       <Separator>:</Separator>
       <span>{seconds[0]}</span>
-      <span>{seconds[0]}</span>
-    </CountContainer>
+      <span>{seconds[1]}</span>
+    </CountdownContainer>
   )
 }
