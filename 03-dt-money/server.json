@@ -13,8 +13,16 @@
       "description": "Hamburguer",
       "type": "outcome", 
       "category": "Venda",
-      "price": 50,
+      "price": 60,
       "createdAt": "2022-11-03T01:19:30.356Z"
+    },
+    {
+      "id": 3,
+      "description": "Ignite Rocketseat",
+      "type": "outcome", 
+      "category": "Educação",
+      "price": 1980,
+      "createdAt": "2022-11-03T01:19:24.356Z"
     }
   ]
 }
