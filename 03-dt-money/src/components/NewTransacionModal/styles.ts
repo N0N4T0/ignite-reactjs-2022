@@ -45,6 +45,7 @@ export const Content = styled(Dialog.Content)`
         color: ${(props) => props.theme["gray-500"]};
       }
     }
+
     button[type="submit"] {
       height: 50px;
       border: 0;
@@ -59,7 +60,12 @@ export const Content = styled(Dialog.Content)`
       background: ${(props) => props.theme["green-500"]};
       color: ${(props) => props.theme.white};
 
-      &:hover {
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      &:not(:disabled):hover {
         background: ${(props) => props.theme["green-700"]};
         transition: background-color 0.2s;
       }
