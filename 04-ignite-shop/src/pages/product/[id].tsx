@@ -7,6 +7,7 @@ import {
   ProductDetails,
 } from "../../styles/pages/product";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface ProductProps {
   product: {
@@ -19,6 +20,12 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const { isFallback } = useRouter();
+
+  if (isFallback) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <ProductContainer>
       <ImageContainer>
@@ -46,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         },
       },
     ],
-    fallback: flase,
+    fallback: true,
   };
 };
 
