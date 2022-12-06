@@ -8,7 +8,7 @@ export default async function handler(
   const { priceId } = req.body;
 
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Mathod not allowed" });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   if (!priceId) {
