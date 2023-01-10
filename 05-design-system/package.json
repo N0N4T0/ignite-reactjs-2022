@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build"
-    
   },
   "devDependencies": {
     "turbo": "^1.6.3"
+  },
+  "dependencies": {
+    "@storybook/addon-a11y": "^6.5.15"
   }
 }
